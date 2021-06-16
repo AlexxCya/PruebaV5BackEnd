@@ -1,17 +1,16 @@
-﻿using PruebaV5.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using PruebaV5.Core.CustomEntities;
+using PruebaV5.Core.Entities;
+using PruebaV5.Core.QueryFilters;
 using System.Threading.Tasks;
 
 namespace PruebaV5.Core.Interfaces
 {
     public interface ICountryService
     {
-        //PagedList<Country> GetPosts(PostQueryFilter filters);
-        Task<Country> GetPost(int Id);
-        Task InsertPost(Country country);
-        Task<bool> UpdatePost(Country country);
-        Task<bool> DeletePost(int Id);
+        PagedList<Country> GetCountries(CountryQueryFilter filters);
+        Task<Country> GetCountry(int Id);
+        Task InsertCountry(Country country);
+        Task<bool> UpdateCountry(Country country);
+        Task<bool> DeleteCountry(int Id);
     }
 }
