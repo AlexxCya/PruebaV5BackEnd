@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using PruebaV5.Core.Interfaces;
-using PruebaV5.Core.CustomEntities;
-using PruebaV5.Core.Entities;
-using System.Net;
-using PruebaV5.Api.Responses;
-using PruebaV5.Core.QueryFilters;
-using PruebaV5.Core.DTOs;
 using Newtonsoft.Json;
+using PruebaV5.Api.Responses;
+using PruebaV5.Core.CustomEntities;
+using PruebaV5.Core.DTOs;
+using PruebaV5.Core.Entities;
+using PruebaV5.Core.Interfaces;
+using PruebaV5.Core.QueryFilters;
+using System.Collections.Generic;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace PruebaV5.Api.Controllers
 {
@@ -82,12 +79,12 @@ namespace PruebaV5.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(int Id, CountryDto CountryDto)
+        public async Task<IActionResult> Put(int Id, CountryDto countryDto)
         {
-            var Country = _mapper.Map<Country>(CountryDto);
-            Country.Id = Id;
+            var country = _mapper.Map<Country>(countryDto);
+            country.Id = Id;
 
-            var result = await _countryService.UpdateCountry(Country);
+            var result = await _countryService.UpdateCountry(country);
             var response = new ApiResponse<bool>(result);
             return Ok(response);
         }

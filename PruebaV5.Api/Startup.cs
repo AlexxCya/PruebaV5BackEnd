@@ -55,9 +55,8 @@ namespace PruebaV5.Api
                 );
 
             services.AddTransient<ICountryService, CountryService>();
+            services.AddTransient<IProvinceService, ProvinceService>();
             //services.AddTransient<ISecurityService, SecurityService>();
-            //services.AddTransient<IPostRepository, PostRepository>();
-            //services.AddTransient<IUserRepository, UserRepository>();
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 

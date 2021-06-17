@@ -13,6 +13,7 @@ namespace PruebaV5.Infrastructure.Mappings
         {
             CreateMap<Country, CountryDto>();
             CreateMap<CountryDto, Country>();
+            CreateMap<Province, ProvinceDto>().ReverseMap();
         }
     }
 }
