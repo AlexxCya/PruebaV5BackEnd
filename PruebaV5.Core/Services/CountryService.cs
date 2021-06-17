@@ -33,7 +33,7 @@ namespace PruebaV5.Core.Services
                 countries = countries.Where(x => x.Name.ToLower().Contains(filters.Name.ToLower()));
 
             if (filters.Alpha2Code != null)
-                countries = countries.Where(x => x.Alpha2Code == filters.Alpha2Code);
+                countries = countries.Where(x => x.Alpha2Code.ToLower().Contains(filters.Alpha2Code.ToLower()));
 
             var pagedCountries = PagedList<Country>.Create(countries, filters.PageNumber, filters.PageSize);
 

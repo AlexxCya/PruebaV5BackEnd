@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace PruebaV5.Api.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class CountryController : ControllerBase

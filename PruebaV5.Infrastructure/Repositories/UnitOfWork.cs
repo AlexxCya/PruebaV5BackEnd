@@ -13,6 +13,7 @@ namespace PruebaV5.Infrastructure.Repositories
         private readonly PruebaV5BDContext _context;
         private readonly IRepository<Country> _countryRepository;
         private readonly IRepository<Province> _provinceRepository;
+        private readonly ISecurityRepository _securityRepository;
 
         public UnitOfWork(PruebaV5BDContext context)
         {
@@ -21,6 +22,8 @@ namespace PruebaV5.Infrastructure.Repositories
         public IRepository<Country> CountryRepository => _countryRepository ?? new BaseRepository<Country>(_context);
 
         public IRepository<Province> ProvinceRepository => _provinceRepository ?? new BaseRepository<Province>(_context);
+
+        public ISecurityRepository SecurityRepository => _securityRepository ?? new SecurityRepository(_context);
 
         public void Dispose()
         {

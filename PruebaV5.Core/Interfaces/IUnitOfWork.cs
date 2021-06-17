@@ -8,6 +8,7 @@ namespace PruebaV5.Core.Interfaces
     {
         IRepository<Country> CountryRepository { get;}
         IRepository<Province> ProvinceRepository { get; }
+        ISecurityRepository SecurityRepository { get; }
         void SaveChanges();
         Task SaveChangesAsync();
     }
