@@ -8,7 +8,7 @@ namespace PruebaV5.Core.Interfaces
     public interface ICountryService
     {
         PagedList<Country> GetCountries(CountryQueryFilter filters);
-        Task<Country> GetCountry(int Id);
+        Task<Country> GetCountry(long Id);
         Task InsertCountry(Country country);
         Task<bool> UpdateCountry(Country country);
         Task<bool> DeleteCountry(int Id);

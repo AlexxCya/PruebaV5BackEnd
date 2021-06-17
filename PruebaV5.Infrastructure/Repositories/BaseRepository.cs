@@ -24,7 +24,7 @@ namespace PruebaV5.Infrastructure.Repositories
             return _entities.AsEnumerable();
         }
 
-        public async Task<T> GetById(int id)
+        public async Task<T> GetById(long id)
         {
             return await _entities.FindAsync(id);
         }

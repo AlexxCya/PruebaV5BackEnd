@@ -6,6 +6,6 @@ namespace PruebaV5.Core.Entities
 {
     public abstract class BaseEntity
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace PruebaV5.Core.Services
             _unitOfWork = unitOfWork;
             _paginationOptions = options.Value;
         }
-        public async Task<Country> GetCountry(int Id)
+        public async Task<Country> GetCountry(long Id)
         {
             return await _unitOfWork.CountryRepository.GetById(Id);
         }
@@ -40,9 +40,10 @@ namespace PruebaV5.Core.Services
             return pagedCountries;
         }
 
-        public Task InsertCountry(Country country)
+        public async Task InsertCountry(Country country)
         {
-            throw new NotImplementedException();
+            await _unitOfWork.CountryRepository.Add(country);
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task<bool> UpdateCountry(Country country)
@@ -54,6 +55,7 @@ namespace PruebaV5.Core.Services
         public async Task<bool> DeleteCountry(int Id)
         {
             await _unitOfWork.CountryRepository.Delete(Id);
+            await _unitOfWork.SaveChangesAsync();
             return true;
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace PruebaV5.Core.CustomEntities
 {
-    class Metadata
+    public class Metadata
     {
         public int TotalCount { get; set; }
         public int PageSize { get; set; }
