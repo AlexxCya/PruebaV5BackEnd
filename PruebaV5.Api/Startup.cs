@@ -30,6 +30,7 @@ namespace PruebaV5.Api
 {
     public class Startup
     {
+        readonly string MiCors = "MiCors";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -40,6 +41,16 @@ namespace PruebaV5.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MiCors,
+                    builder =>
+                    {
+                        builder.WithHeaders("*");
+                        builder.WithOrigins("*");
+                        builder.WithMethods("*");
+                    });
+            });
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddControllers(options =>
@@ -141,6 +152,7 @@ namespace PruebaV5.Api
                 options.RoutePrefix = string.Empty;
             });
             app.UseRouting();
+            app.UseCors(MiCors);
 
             app.UseAuthentication();
             app.UseAuthorization();

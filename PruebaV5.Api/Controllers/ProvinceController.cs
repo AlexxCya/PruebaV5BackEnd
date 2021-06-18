@@ -17,7 +17,7 @@ using PruebaV5.Core.QueryFilters;
 
 namespace PruebaV5.Api.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
@@ -33,7 +33,7 @@ namespace PruebaV5.Api.Controllers
             //_uriservice = uriservice;
         }
         /// <summary>
-        /// Retrieve all Posts
+        /// Retrieve all Provinces or Retrieve all Provinces By Country
         /// </summary>
         /// <param name="filters">Filters to apply</param>
         /// <returns></returns>
@@ -55,7 +55,7 @@ namespace PruebaV5.Api.Controllers
                 HasPreviousPage = provinces.HasPreviousPage
             };
 
-            var response = new ApiResponse<IEnumerable<ProvinceDto>>(provincesDtos)
+            var response = new ApiResponse<IEnumerable<ProvinceDto>>(provincesDtos, true)
             {
                 Meta = metadata
             };
@@ -64,34 +64,50 @@ namespace PruebaV5.Api.Controllers
 
             return Ok(response);
         }
+        /// <summary>
+        /// Add Province
+        /// </summary>
+        /// <param name="provinceDto">Filters to apply</param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Country(ProvinceDto provinceDto)
+        public async Task<IActionResult> Province(ProvinceDto provinceDto)
         {
             var province = _mapper.Map<Province>(provinceDto);
             await _provinceService.InsertProvince(province);
 
             provinceDto = _mapper.Map<ProvinceDto>(province);
 
-            var response = new ApiResponse<ProvinceDto>(provinceDto);
+            var response = new ApiResponse<ProvinceDto>(provinceDto, true);
             return Ok(response);
         }
-
+        /// <summary>
+        /// Update Province
+        /// </summary>
+        /// <param name="Id">Filters to apply</param>
+        /// <param name="countryId">Filters to apply</param>
+        /// <param name="provinceDto">Filters to apply</param>
+        /// <returns></returns>
         [HttpPut]
-        public async Task<IActionResult> Put(int Id, ProvinceDto provinceDto)
+        public async Task<IActionResult> Put(int Id, int countryId, ProvinceDto provinceDto)
         {
             var province = _mapper.Map<Province>(provinceDto);
             province.Id = Id;
+            province.CountyId = countryId;
 
             var result = await _provinceService.UpdateProvince(province);
-            var response = new ApiResponse<bool>(result);
+            var response = new ApiResponse<bool>(result, result);
             return Ok(response);
         }
-
+        /// <summary>
+        /// Delete Province
+        /// </summary>
+        /// <param name="Id">Filters to apply</param>
+        /// <returns></returns>
         [HttpDelete("{Id}")]
         public async Task<IActionResult> Delete(int Id)
         {
             var result = await _provinceService.DeleteProvince(Id);
-            var response = new ApiResponse<bool>(result);
+            var response = new ApiResponse<bool>(result, result);
             return Ok(response);
         }
     }

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using PruebaV5.Api.Responses;
 using PruebaV5.Core.Entities;
 using PruebaV5.Core.Interfaces;
 
@@ -25,6 +26,11 @@ namespace PruebaV5.Api.Controllers
             _configuration = configuration;
             _securityService = securityService;
         }
+        /// <summary>
+        /// User Authentication to Generate Token
+        /// </summary>
+        /// <param name="login">Filters to apply</param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Authentication(UserLogin login)
         {
@@ -32,8 +38,11 @@ namespace PruebaV5.Api.Controllers
             var validation = await IsValidateUser(login);
             if (validation.Item1)
             {
+                var isValid = validation.Item1;
                 var token = GenerateToken(validation.Item2);
-                return Ok(new { token });
+                var response = new ApiResponse<string>(token, isValid);
+                //return Ok(new { isValid, login.User, token });
+                return Ok(response);
             }
 
             return NotFound();

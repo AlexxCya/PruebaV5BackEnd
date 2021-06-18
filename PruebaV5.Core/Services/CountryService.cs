@@ -13,10 +13,12 @@ namespace PruebaV5.Core.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly PaginationOptions _paginationOptions;
-        public CountryService(IUnitOfWork unitOfWork, IOptions<PaginationOptions> options)
+        private readonly IProvinceService _provinceService;
+        public CountryService(IUnitOfWork unitOfWork, IOptions<PaginationOptions> options, IProvinceService provinceService)
         {
             _unitOfWork = unitOfWork;
             _paginationOptions = options.Value;
+            _provinceService = provinceService;
         }
         public async Task<Country> GetCountry(long Id)
         {
@@ -54,6 +56,14 @@ namespace PruebaV5.Core.Services
         }
         public async Task<bool> DeleteCountry(int Id)
         {
+            var _lstCountries = _provinceService.GetProvinces(new ProvinceQueryFilter { CountryId = Id });
+
+            foreach(var item in _lstCountries)
+            {
+                await _provinceService.DeleteProvince(int.Parse(item.Id.ToString()));
+            }
+
+
             await _unitOfWork.CountryRepository.Delete(Id);
             await _unitOfWork.SaveChangesAsync();
             return true;
